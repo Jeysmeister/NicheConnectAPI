@@ -32,9 +32,9 @@ export class PostsController {
     return this.postsService.findOne(id);
   }
 
-  @Get(':userId')
-  findByUserId(@Param('userId') userId: string) {
-    return this.postsService.findByUserId(userId);
+  @Get('/userId/:id')
+  findByUserId(@Param('id') id: string) {
+    return this.postsService.findByUserId(id);
   }
 
   @Patch(':id')

@@ -15,18 +15,22 @@ export class PostsService {
   }
 
   async findAll() {
-    return await this.prisma.posts.findMany();
+    return await this.prisma.posts.findMany({
+      include: { comments: true, likes: true },
+    });
   }
 
   async findOne(id: string) {
     return await this.prisma.posts.findUnique({
       where: { postId: id },
+      include: { comments: true, likes: true },
     });
   }
 
-  async findByUserId(userId: string) {
+  async findByUserId(id: string) {
     return await this.prisma.posts.findMany({
-      where: { userId },
+      where: { userId: id },
+      include: { comments: true, likes: true },
     });
   }
 
@@ -36,11 +40,12 @@ export class PostsService {
       data: {
         ...updatePostDto,
       },
+      include: { comments: true, likes: true },
     });
   }
 
   async remove(id: string) {
-    return this.prisma.posts.delete({
+    return await this.prisma.posts.delete({
       where: { postId: id },
     });
   }
