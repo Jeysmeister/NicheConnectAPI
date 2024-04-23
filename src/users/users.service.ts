@@ -57,25 +57,12 @@ export class UsersService {
     return await this.prisma.users.update({
       where: { userId: id },
       data: updateUserDto,
-      select: {
-        userId: true,
-        username: true,
-        email: true,
-        avatar: true,
-        bio: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
   }
 
   async remove(id: string) {
-    try {
-      return await this.prisma.users.delete({
-        where: { userId: id },
-      });
-    } catch (error) {
-      return { error: error };
-    }
+    return await this.prisma.users.delete({
+      where: { userId: id },
+    });
   }
 }
