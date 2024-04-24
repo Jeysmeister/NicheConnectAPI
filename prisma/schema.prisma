@@ -45,6 +45,7 @@ model Comments{
   user        Users       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
   userId      String
   content     String
+  votes       Votes[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 }
@@ -56,4 +57,12 @@ model Likes{
   user        Users       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
   userId      String
   createdAt   DateTime    @default(now())
+}
+
+model Votes{
+  voteId      String      @id @default(uuid())
+  comment     Comments    @relation(fields: [commentId], references: [commentId], onDelete: NoAction, onUpdate: NoAction)
+  commentId   String
+  vote        Boolean 
+  createdAt   DateTime    @default(now())     
 }

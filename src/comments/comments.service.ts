@@ -13,7 +13,7 @@ export class CommentsService {
   }
 
   async findAll() {
-    return await this.prisma.comments.findMany();
+    return await this.prisma.comments.findMany({});
   }
 
   async findOne(id: string) {

@@ -1,0 +1,28 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Votes] (
+    [voteId] NVARCHAR(1000) NOT NULL,
+    [commentId] NVARCHAR(1000) NOT NULL,
+    [vote] BIT NOT NULL,
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Votes_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT [Votes_pkey] PRIMARY KEY CLUSTERED ([voteId])
+);
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Votes] ADD CONSTRAINT [Votes_commentId_fkey] FOREIGN KEY ([commentId]) REFERENCES [dbo].[Comments]([commentId]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
