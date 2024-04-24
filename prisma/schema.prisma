@@ -25,6 +25,7 @@ model Users{
   posts       Posts[]
   comments    Comments[]
   likes       Likes[]
+  votes       Votes[]
 }
 
 model Posts{
@@ -56,6 +57,7 @@ model Likes{
   postId      String
   user        Users       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
   userId      String
+  like        Boolean
   createdAt   DateTime    @default(now())
 }
 
@@ -63,6 +65,8 @@ model Votes{
   voteId      String      @id @default(uuid())
   comment     Comments    @relation(fields: [commentId], references: [commentId], onDelete: NoAction, onUpdate: NoAction)
   commentId   String
+  user        Users       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)     
+  userId      String
   vote        Boolean 
   createdAt   DateTime    @default(now())     
 }
