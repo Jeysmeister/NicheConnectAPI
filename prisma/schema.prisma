@@ -74,4 +74,5 @@ model Votes{
 model Reports{
   reportId String @id @default(uuid())
   report String
+  createdAt DateTime @default(now())
 }
