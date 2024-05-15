@@ -70,3 +70,8 @@ model Votes{
   vote        Boolean 
   createdAt   DateTime    @default(now())     
 }
+
+model Reports{
+  reportId String @id @default(uuid())
+  report String
+}
